@@ -39,53 +39,33 @@
           >
             <div class="pg-card-tilt" :style="tilts[project.id]">
               <div class="pg-img-zone">
-                <div class="pg-visual" :style="{ background: project.gradient }">
+                <div
+                  class="pg-visual"
+                  :style="{
+                    backgroundImage: `url(${project.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }"
+                >
                   <div class="pg-film-num">{{ String(i + 1).padStart(2, '0') }}</div>
-                  <div class="pg-mock-browser">
-                    <div class="pg-mock-bar">
-                      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-                      <span class="pg-mock-url">{{ project.url }}</span>
-                    </div>
-                    <div class="pg-mock-body">
-                      <div class="pg-mock-nav">
-                        <div class="mn-logo"></div>
-                        <div class="mn-links"><div v-for="n in 4" :key="n" class="mn-link"></div></div>
-                      </div>
-                      <div class="pg-mock-hero">
-                        <div class="mh-line w-65"></div>
-                        <div class="mh-line w-45"></div>
-                        <div class="mh-btns">
-                          <div class="mh-btn green"></div>
-                          <div class="mh-btn outline"></div>
-                        </div>
-                      </div>
-                      <div class="pg-mock-cards">
-                        <div v-for="n in 3" :key="n" class="pg-mock-card">
-                          <div class="pmc-icon"></div>
-                          <div class="pmc-line w-80"></div>
-                          <div class="pmc-line w-55"></div>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="pg-cat-pill">
+                    <svg width="6" height="6" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3" fill="#00B894"/></svg>
+                    {{ project.category }}
                   </div>
-                </div>
-                <div class="pg-cat-pill">
-                  <svg width="6" height="6" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3" fill="#00B894"/></svg>
-                  {{ project.category }}
-                </div>
-                <Transition name="overlay-fade">
-                  <div v-if="hoveredCard === project.id" class="pg-hover-overlay">
-                    <div class="pho-inner">
-                      <div class="pho-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
-                          fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-                        </svg>
+                  <Transition name="overlay-fade">
+                    <div v-if="hoveredCard === project.id" class="pg-hover-overlay">
+                      <div class="pho-inner">
+                        <div class="pho-icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                          </svg>
+                        </div>
+                        <span class="pho-cta">اضغط لمزيد من التفاصيل</span>
                       </div>
-                      <span class="pho-cta">اضغط لمزيد من التفاصيل</span>
                     </div>
-                  </div>
-                </Transition>
+                  </Transition>
+                </div>
               </div>
               <div class="pg-card-body">
                 <div class="pg-tags">
@@ -123,40 +103,10 @@
               <!-- Hero -->
               <div class="pm-hero" :style="{ background: modalProject.gradient }">
                 <div class="pm-hero-num">{{ String(modalProject.id).padStart(2, '0') }}</div>
-                <div class="pm-big-browser">
-                  <div class="pm-bb-bar">
-                    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-                    <span class="pm-bb-url">{{ modalProject.url }}</span>
-                  </div>
-                  <div class="pm-bb-body">
-                    <div class="pm-bb-nav">
-                      <div class="mn-logo"></div>
-                      <div class="mn-links"><div v-for="n in 5" :key="n" class="mn-link"></div></div>
-                    </div>
-                    <div class="pm-bb-hero-row">
-                      <div class="pm-bb-left">
-                        <div class="pm-bb-line w-70"></div>
-                        <div class="pm-bb-line w-50"></div>
-                        <div class="pm-bb-line w-60"></div>
-                        <div class="pm-bb-btns">
-                          <div class="mh-btn green big"></div>
-                          <div class="mh-btn outline big"></div>
-                        </div>
-                      </div>
-                      <div class="pm-bb-right">
-                        <div class="pm-bb-img-mock"></div>
-                      </div>
-                    </div>
-                    <div class="pm-bb-cards">
-                      <div v-for="n in 4" :key="n" class="pm-bb-card">
-                        <div class="pmc-icon big"></div>
-                        <div class="pmc-line w-80"></div>
-                        <div class="pmc-line w-55"></div>
-                        <div class="pmc-line w-40"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div
+                  class="pm-hero-img"
+                  :style="{ backgroundImage: `url(${modalProject.image})` }"
+                ></div>
                 <div class="pm-cat-badge">{{ modalProject.resultIcon }} {{ modalProject.category }}</div>
               </div>
 
@@ -241,7 +191,12 @@
 <script setup>
 import { ref, computed, nextTick } from "vue";
 import { useRevealMany } from "@/composables/useReveal";
-
+import alseelImg from "@/assets/alseel-restaurant.jpeg";
+import duraImg from "@/assets/durra-dental.jpeg";
+import bnaaImg from "@/assets/bnaa.jpeg";
+import zafranImg from "@/assets/zafranImg.jpeg";
+import rwad from "@/assets/rwad.jpeg";
+import nour from "@/assets/nour.jpeg";
 const { refs, visibles } = useRevealMany(["header", "filters", "grid"], 0.12);
 const headerRef      = refs.header;
 const filtersRef     = refs.filters;
@@ -305,7 +260,7 @@ const projects = [
     desc: "تصميم عصري مع قائمة طعام تفاعلية ونظام حجز طاولات.",
     fullDesc: "أعدنا تصميم الحضور الرقمي لمطعم الأصيل بالكامل. الموقع الجديد يعكس هوية المطعم الأصيلة بتصميم عصري يجمع بين الأناقة والسهولة. نظام الحجز الذكي يتيح للعملاء حجز طاولاتهم مباشرة دون الحاجة للاتصال.",
     tags: ["UI/UX", "حجز أونلاين", "متجاوب"],
-    url: "aseel-restaurant.jo",
+    image: alseelImg,
     result: "↑ 60٪ حجوزات أونلاين", resultIcon: "🍽️",
     gradient: "linear-gradient(135deg, #0d1b35 0%, #00B894 130%)",
     price: "٢٥٠ دينار", priceNote: "شامل التصميم والبرمجة والرفع", delivery: "٥ أيام",
@@ -328,7 +283,7 @@ const projects = [
     desc: "تصميم نظيف يبث الثقة مع نظام حجز مواعيد مدمج.",
     fullDesc: "صممنا موقع العيادة ليعطي انطباعاً أولياً احترافياً يريح المريض قبل وصوله. نظام الحجز الإلكتروني مدمج بالكامل مع التذكيرات التلقائية عبر SMS وواتساب.",
     tags: ["نظام حجز", "Healthcare", "SMS"],
-    url: "durra-dental.jo",
+    image: duraImg, // ← replace with your actual import
     result: "↓ 45٪ مكالمات الحجز", resultIcon: "🦷",
     gradient: "linear-gradient(135deg, #1A2B4C 0%, #55E6C1 130%)",
     price: "٢٢٠ دينار", priceNote: "شامل نظام الحجز والتذكيرات", delivery: "٤ أيام",
@@ -351,7 +306,7 @@ const projects = [
     desc: "موقع احترافي مع معرض مشاريع تفاعلي وصفحة طلب عروض.",
     fullDesc: "أنشأنا حضوراً رقمياً قوياً لشركة بناء يعكس ضخامة مشاريعها. معرض الصور التفاعلي يعرض مشاريع الشركة بأسلوب سينمائي، وصفحة طلب عروض الأسعار تحوّل الزوار إلى عملاء.",
     tags: ["B2B", "معرض صور", "عروض أسعار"],
-    url: "binaa-co.jo",
+    image: bnaaImg, // ← replace with your actual import
     result: "↑ 3× استفسارات جديدة", resultIcon: "🏗️",
     gradient: "linear-gradient(135deg, #2C3E6B 0%, #1A2B4C 100%)",
     price: "٢٨٠ دينار", priceNote: "شامل معرض الصور وطلبات العروض", delivery: "٦ أيام",
@@ -374,7 +329,7 @@ const projects = [
     desc: "تجربة تسوق فاخرة مع صور احترافية ودفع آمن وشحن ذكي.",
     fullDesc: "بنينا متجراً إلكترونياً يليق بفخامة منتجات الزعفران. التصميم يحاكي تجربة التسوق في متاجر العطور الراقية — صور المنتجات بجودة عالية، وصفات تفصيلية، ونظام دفع آمن.",
     tags: ["eCommerce", "دفع إلكتروني", "فاخر", "شحن"],
-    url: "zaafaran-store.jo",
+    image: zafranImg, // ← replace with your actual import
     result: "↑ 2.4× معدل التحويل", resultIcon: "🧴",
     gradient: "linear-gradient(135deg, #00B894 0%, #0d1b35 130%)",
     price: "٣٨٠ دينار", priceNote: "شامل بوابة الدفع ولوحة التحكم", delivery: "٧ أيام",
@@ -397,7 +352,7 @@ const projects = [
     desc: "هوية بصرية متكاملة — شعار، ألوان، خطوط، قوالب.",
     fullDesc: "صممنا الهوية البصرية الكاملة لنور من الصفر. الشعار يعبّر عن الثقة والاحترافية، ودليل الهوية يضمن الاتساق على جميع المواد المطبوعة والرقمية.",
     tags: ["هوية", "شعار", "Brand Guidelines"],
-    url: "noor-consulting.jo",
+    image: nour, // ← replace with your actual import
     result: "هوية بصرية متكاملة", resultIcon: "✨",
     gradient: "linear-gradient(135deg, #55E6C1 0%, #2C3E6B 110%)",
     price: "١٨٠ دينار", priceNote: "شامل الملفات الكاملة بكل الصيغ", delivery: "٣ أيام",
@@ -420,7 +375,7 @@ const projects = [
     desc: "منصة تعليمية مع تسجيل بالكورسات ومتابعة التقدم.",
     fullDesc: "طورنا منصة تعليمية متكاملة لأكاديمية رواد تتيح للطلاب التسجيل والدفع وحضور المحاضرات واستلام الشهادات — كل ذلك من مكان واحد.",
     tags: ["LMS", "تعليم", "شهادات"],
-    url: "ruwad-academy.jo",
+    image: rwad, // ← replace with your actual import
     result: "↑ 80٪ تسجيلات إضافية", resultIcon: "🎓",
     gradient: "linear-gradient(135deg, #1A2B4C 0%, #00B894 120%)",
     price: "٣٢٠ دينار", priceNote: "شامل منصة LMS الكاملة", delivery: "٨ أيام",
@@ -487,43 +442,60 @@ function getCategoryCount(key) {
 .pg-card.visible { opacity: 1; transform: translateY(0) scale(1); }
 .pg-card-tilt { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; transform-style: preserve-3d; transition: border-color 0.4s, box-shadow 0.4s; }
 .pg-card:hover .pg-card-tilt { border-color: rgba(0,184,148,0.3); box-shadow: 0 24px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,184,148,0.12); }
+
+/* ── Image zone ── */
 .pg-img-zone { position: relative; padding-top: 55%; overflow: hidden; flex-shrink: 0; }
 .pg-card--large .pg-img-zone { padding-top: 48%; }
 .pg-card--small .pg-img-zone { padding-top: 62%; }
-.pg-visual { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1.5rem; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
-.pg-card:hover .pg-visual { transform: scale(1.05); }
-.pg-film-num { position: absolute; bottom: 0.6rem; left: 0.75rem; font-size: 4.5rem; font-weight: 900; line-height: 1; color: rgba(255,255,255,0.1); pointer-events: none; user-select: none; letter-spacing: -3px; }
-.pg-mock-browser { width: 88%; max-width: 310px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; overflow: hidden; backdrop-filter: blur(10px); box-shadow: 0 20px 56px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.2); }
-.pg-mock-bar { display: flex; align-items: center; gap: 0.35rem; padding: 0.55rem 0.8rem; background: rgba(0,0,0,0.25); border-bottom: 1px solid rgba(255,255,255,0.07); }
-.dot { width: 8px; height: 8px; border-radius: 50%; }
-.dot.r { background: #ff5f57; } .dot.y { background: #febc2e; } .dot.g { background: #28c840; }
-.pg-mock-url { flex: 1; text-align: center; background: rgba(255,255,255,0.07); border-radius: 4px; padding: 0.18rem 0.5rem; font-size: 0.6rem; color: rgba(255,255,255,0.35); }
-.pg-mock-body { padding: 0.6rem; display: flex; flex-direction: column; gap: 0.4rem; }
-.pg-mock-nav { display: flex; align-items: center; justify-content: space-between; padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 0.4rem; }
-.mn-logo { width: 24px; height: 10px; border-radius: 3px; background: rgba(0,184,148,0.6); }
-.mn-links { display: flex; gap: 0.3rem; }
-.mn-link { width: 18px; height: 5px; border-radius: 2px; background: rgba(255,255,255,0.12); }
-.pg-mock-hero { display: flex; flex-direction: column; gap: 0.35rem; padding: 0.5rem 0; }
-.mh-line { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.15); animation: pulse 2.5s ease-in-out infinite; }
-.w-65 { width: 65%; } .w-45 { width: 45%; } .w-70 { width: 70%; } .w-50 { width: 50%; } .w-60 { width: 60%; } .w-80 { width: 80%; } .w-55 { width: 55%; } .w-40 { width: 40%; }
-@keyframes pulse { 0%,100%{opacity:0.5;} 50%{opacity:1;} }
-.mh-btns { display: flex; gap: 0.35rem; margin-top: 0.25rem; }
-.mh-btn { height: 16px; border-radius: 4px; }
-.mh-btn.green { width: 55px; background: rgba(0,184,148,0.7); }
-.mh-btn.outline { width: 40px; background: rgba(255,255,255,0.12); }
-.mh-btn.big { height: 20px; }
-.mh-btn.green.big { width: 70px; }
-.mh-btn.outline.big { width: 55px; }
-.pg-mock-cards { display: flex; gap: 0.3rem; }
-.pg-mock-card { flex: 1; background: rgba(255,255,255,0.06); border-radius: 5px; padding: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
-.pmc-icon { width: 14px; height: 14px; border-radius: 4px; background: rgba(0,184,148,0.4); }
-.pmc-icon.big { width: 20px; height: 20px; }
-.pmc-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.12); }
-.pg-cat-pill { position: absolute; top: 1rem; right: 1rem; display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(13,27,53,0.75); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); font-size: 0.7rem; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 100px; }
-.pg-hover-overlay { position: absolute; inset: 0; background: rgba(13,27,53,0.88); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; }
+
+/* ── Full image visual — no mock browser ── */
+.pg-visual {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.pg-card:hover .pg-visual { transform: scale(1.06); }
+
+/* Gradient overlay so pills stay readable */
+.pg-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(13,27,53,0.65) 0%,
+    rgba(13,27,53,0.15) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.pg-film-num {
+  position: absolute; bottom: 0.6rem; left: 0.75rem;
+  font-size: 4.5rem; font-weight: 900; line-height: 1;
+  color: rgba(255,255,255,0.15); pointer-events: none;
+  user-select: none; letter-spacing: -3px; z-index: 2;
+}
+.pg-cat-pill {
+  position: absolute; top: 1rem; right: 1rem;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(13,27,53,0.75); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
+  font-size: 0.7rem; font-weight: 600; padding: 0.3rem 0.75rem;
+  border-radius: 100px; z-index: 2;
+}
+.pg-hover-overlay {
+  position: absolute; inset: 0; z-index: 3;
+  background: rgba(13,27,53,0.82); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+}
 .pho-inner { display: flex; flex-direction: column; align-items: center; gap: 0.9rem; }
 .pho-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(0,184,148,0.15); border: 1.5px solid rgba(0,184,148,0.3); display: flex; align-items: center; justify-content: center; color: #00B894; }
 .pho-cta { font-family: 'Tajawal', sans-serif; font-size: 0.88rem; font-weight: 700; color: rgba(255,255,255,0.85); }
+
 .pg-card-body { padding: 1.5rem 1.75rem 1.75rem; display: flex; flex-direction: column; gap: 0.7rem; }
 .pg-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
 .pg-tag { font-size: 0.68rem; font-weight: 600; color: #55E6C1; background: rgba(85,230,193,0.1); border: 1px solid rgba(85,230,193,0.18); padding: 0.2rem 0.55rem; border-radius: 100px; }
@@ -587,35 +559,56 @@ function getCategoryCount(key) {
 .pm-scroll::-webkit-scrollbar { width: 4px; }
 .pm-scroll::-webkit-scrollbar-thumb { background: rgba(0,184,148,0.3); border-radius: 4px; }
 
+/* ── Modal hero with full image ── */
 .pm-hero {
-  position: relative; height: 240px; overflow: hidden;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
-@media (min-width: 640px) { .pm-hero { height: 300px; } }
+@media (min-width: 640px) { .pm-hero { height: 320px; } }
+
 .pm-hero-num {
   position: absolute; bottom: -0.5rem; left: 1rem;
   font-size: 9rem; font-weight: 900; line-height: 1;
-  color: rgba(255,255,255,0.07); pointer-events: none; user-select: none; letter-spacing: -6px;
+  color: rgba(255,255,255,0.08); pointer-events: none;
+  user-select: none; letter-spacing: -6px; z-index: 2;
 }
-.pm-big-browser {
-  width: 70%; max-width: 420px;
-  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 12px; overflow: hidden; backdrop-filter: blur(12px);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+
+/* Full real image in modal hero */
+.pm-hero-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  z-index: 1;
 }
-.pm-bb-bar { display: flex; align-items: center; gap: 0.35rem; padding: 0.65rem 1rem; background: rgba(0,0,0,0.3); border-bottom: 1px solid rgba(255,255,255,0.06); }
-.pm-bb-url { flex: 1; text-align: center; background: rgba(255,255,255,0.07); border-radius: 4px; padding: 0.2rem 0.6rem; font-size: 0.64rem; color: rgba(255,255,255,0.3); }
-.pm-bb-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.5rem; }
-.pm-bb-nav { display: flex; align-items: center; justify-content: space-between; padding: 0.25rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 0.35rem; }
-.pm-bb-hero-row { display: flex; gap: 0.75rem; align-items: center; padding: 0.5rem 0; }
-.pm-bb-left { flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
-.pm-bb-right { flex-shrink: 0; }
-.pm-bb-img-mock { width: 70px; height: 55px; border-radius: 8px; background: rgba(255,255,255,0.1); }
-.pm-bb-line { height: 7px; border-radius: 3px; background: rgba(255,255,255,0.15); animation: pulse 2.5s ease-in-out infinite; }
-.pm-bb-btns { display: flex; gap: 0.4rem; margin-top: 0.3rem; }
-.pm-bb-cards { display: flex; gap: 0.35rem; }
-.pm-bb-card { flex: 1; background: rgba(255,255,255,0.06); border-radius: 6px; padding: 0.5rem; display: flex; flex-direction: column; gap: 0.3rem; }
-.pm-cat-badge { position: absolute; bottom: 1.2rem; right: 1.2rem; background: rgba(13,27,53,0.8); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); color: white; font-size: 0.78rem; font-weight: 700; padding: 0.4rem 0.9rem; border-radius: 100px; }
+.pm-panel:hover .pm-hero-img { transform: scale(1.03); }
+
+/* Dark gradient overlay on modal hero image */
+.pm-hero-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(13,27,53,0.75) 0%,
+    rgba(13,27,53,0.25) 50%,
+    rgba(13,27,53,0.1) 100%
+  );
+}
+
+.pm-cat-badge {
+  position: absolute; bottom: 1.2rem; right: 1.2rem; z-index: 3;
+  background: rgba(13,27,53,0.8); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1); color: white;
+  font-size: 0.78rem; font-weight: 700; padding: 0.4rem 0.9rem; border-radius: 100px;
+}
 
 .pm-content { padding: 2rem 2rem 2.5rem; display: flex; flex-direction: column; gap: 1.75rem; }
 .pm-title-row { display: flex; flex-direction: column; gap: 0.75rem; }
