@@ -25,7 +25,7 @@
 
 <script setup>
 import { useReveal } from "@/composables/useReveal";
-import {userouter} from "vue-router";
+import {useRouter} from "vue-router";
 const { elRef, visible } = useReveal(0.12);
 const router = useRouter();
 function gotoContact() {
