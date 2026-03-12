@@ -9,7 +9,7 @@
         <p class="cta-desc">احجز استشارة مجانية وسنساعدك على رسم خارطة طريق حضورك الرقمي.</p>
       </div>
       <div class="cta-action-side">
-        <a href="/contact" class="cta-btn-primary">
+        <a href="" class="cta-btn-primary" @click="gotoContact" >
           <span class="cta-btn-fill"></span>
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -25,7 +25,12 @@
 
 <script setup>
 import { useReveal } from "@/composables/useReveal";
+import {userouter} from "vue-router";
 const { elRef, visible } = useReveal(0.12);
+const router = useRouter();
+function gotoContact() {
+  router.push('/contact');
+}
 </script>
 
 <style scoped>
