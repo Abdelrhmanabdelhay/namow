@@ -136,7 +136,7 @@
           </div>
 
           <div class="cta-row">
-            <a href="/contact" class="btn-main">
+            <a href="" class="btn-main " @click="gotoContact">
               <span class="btn-bg"></span>
               <span class="btn-text">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
@@ -157,7 +157,11 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-
+import { useRouter } from "vue-router";
+const router = useRouter();
+function gotoContact(){
+  router.push('/contact');
+}
 const sectionRef = ref(null);
 const visible    = ref(false);
 let observer;
